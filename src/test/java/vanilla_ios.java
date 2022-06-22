@@ -33,9 +33,11 @@ public class vanilla_ios {
             caps.setCapability("devicelog", true);
             caps.setCapability("network", true);
 
+            //ADD GEOLOCATION BASED ON COUNTRY CODE
+            caps.setCapability("geoLocation", "fr");
 
-        driver = new IOSDriver(new URL("https://" + userName + ":" + accessKey + "@mobile-hub.lambdatest.com/wd/hub"), caps);
 
+           driver = new IOSDriver(new URL("https://" + userName + ":" + accessKey + "@mobile-hub.lambdatest.com/wd/hub"), caps);
 
             Thread.sleep(2000);
 
@@ -74,12 +76,10 @@ public class vanilla_ios {
             el4.click();
             el4.sendKeys("Lambdatest");
 
-           //MARKING TEST AS PASSED
             ((JavascriptExecutor) driver).executeScript("lambda-status=passed");
             driver.quit();
 
         } catch (Exception t) {
-           //MARKING TEST AS FAILED
            ((JavascriptExecutor) driver).executeScript("lambda-status=failed");
            t.printStackTrace();
            driver.quit();

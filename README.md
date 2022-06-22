@@ -1,10 +1,10 @@
-# How to mark test as Passed or Failed in Java with Appium on [LambdaTest](https://www.lambdatest.com/?utm_source=github&utm_medium=repo&utm_campaign=appium-java-passfail)
+# How to change IP geographic location in Java with Appium on [LambdaTest](https://www.lambdatest.com/?utm_source=github&utm_medium=repo&utm_campaign=appium-java-geoLocation)
 
-While performing app automation testing with appium on LambdaTest Grid, you may face a scenario where a test that you declared as fail in your local instance may turn out to be completed successfully at LambdaTest. Don't worry though! We understand how imperative it is to flag an app automation test as either "pass" or "fail" depending upon your testing requirement with respect to the validation of expected behaviour. You can refer to sample test repo [here](https://github.com/LambdaTest/LT-appium-java).
+While performing app automation testing with appium on LambdaTest Grid, you may face a scenario where you would like to simulate location of a specific country. You can easily do that by using the lambdatest capability "GeoLocation" and refer the 2-letter country code in the automation script. You can refer to sample test repo [here](https://github.com/LambdaTest/LT-appium-java).
 
 # Steps:
 
-You can specify a test as passed or failed by Lambda hooks. The following is an example on how to set test result as passed or failed. If the code reaches exception, then it will be marked as failed, else as passed.
+The following is an example on how to set geoLocation in the capabilities. You can make the change in the ```vanilla_android.java``` and ```vanilla_ios.java``` file:
 
 Below is the ```vanilla_android.java``` example shown:
 
@@ -27,11 +27,15 @@ public class vanilla_android {
             capabilities.setCapability("isRealMobile", true);
             capabilities.setCapability("app", "lt://"); //Enter your app url
             capabilities.setCapability("deviceOrientation", "PORTRAIT");
-            capabilities.setCapability("build", "Java Vanilla - Android");
+            capabilities.setCapability("build", "Java Vanilla - iOS");
             capabilities.setCapability("name", "Sample Test Java");
             capabilities.setCapability("console", true);
+            capabilities.setCapability("network", false);
             capabilities.setCapability("visual", true);
             capabilities.setCapability("devicelog", true);
+          
+            //ADD GEOLOCATION BASED ON COUNTRY CODE
+            capabilities.setCapability("geoLocation", "fr");
 
             driver = new AppiumDriver(new URL("https://" +userName + ":" + accessKey + "@mobile-hub.lambdatest.com/wd/hub"), capabilities);
 
@@ -46,25 +50,8 @@ public class vanilla_android {
 
             MobileElement notification = (MobileElement) driver.findElement(MobileBy.id("com.lambdatest.proverbial:id/notification"));
             notification.click();
-
-            MobileElement geo = (MobileElement) driver.findElement(MobileBy.id("com.lambdatest.proverbial:id/geoLocation"));
-            geo.click();
-            Thread.sleep(5000);
-
-            MobileElement el3 = (MobileElement) driver.findElementByAccessibilityId("Home");
-            MobileElement browser = (MobileElement) driver.findElement(MobileBy.AccessibilityId("Browser"));
-            browser.click();
-
-            MobileElement url = (MobileElement) driver.findElement(MobileBy.id("com.lambdatest.proverbial:id/url"));
-            url.sendKeys("https://www.lambdatest.com");
-            MobileElement find = (MobileElement) driver.findElement(MobileBy.id("com.lambdatest.proverbial:id/find"));
-            find.click();
-
-            //MARKING TEST AS PASSED
-            ((JavascriptExecutor) driver).executeScript("lambda-status=passed");
-
+            
         } catch (AssertionError a) {
-            //MARKING TEST AS FAILED
             ((JavascriptExecutor) driver).executeScript("lambda-status=failed");
             a.printStackTrace();
             driver.quit();
@@ -73,14 +60,11 @@ public class vanilla_android {
 }
 ```
 
-## Executing The Test
+##Executing The Test
 
 Execute the following commands to install the required dependencies:
 
-```bash
-mvn clean install
-```
-
+```mvn clean install```
 The tests can be executed in the terminal using the following command:
 
 Android:
@@ -94,6 +78,11 @@ iOS:
 ```bash
 mvn test -P ios
 ```
+
+Info: Your test results would be displayed on the test console (or command-line interface if you are using terminal/cmd) and on the 🔗 LambdaTest App Automation Dashboard.
+
+
+
 
 Your test results would be displayed on the test console (or command-line interface if you are using terminal/cmd) and on the [LambdaTest App Automation Dashboard](https://appautomation.lambdatest.com/build).
 
@@ -144,4 +133,4 @@ To stay updated with the latest features and product add-ons, visit [Changelog](
 ## We are here to help you :headphones:
 
 * Got a query? we are available 24x7 to help. [Contact Us](support@lambdatest.com)
-* For more info, visit - [LambdaTest](https://www.lambdatest.com/?utm_source=github&utm_medium=repo&utm_campaign=appium-java-passfail)
+* For more info, visit - [LambdaTest](https://www.lambdatest.com/?utm_source=github&utm_medium=repo&utm_campaign=appium-java-geoLocation)

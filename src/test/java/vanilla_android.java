@@ -31,6 +31,10 @@ public class vanilla_android {
             capabilities.setCapability("visual", true);
             capabilities.setCapability("devicelog", true);
 
+            //ADD GEOLOCATION BASED ON COUNTRY CODE
+            capabilities.setCapability("geoLocation", "fr");
+
+
             driver = new AppiumDriver(new URL("https://" +userName + ":" + accessKey + "@mobile-hub.lambdatest.com/wd/hub"), capabilities);
 
             MobileElement color = (MobileElement) driver.findElement(MobileBy.id("com.lambdatest.proverbial:id/color"));
@@ -58,11 +62,9 @@ public class vanilla_android {
             MobileElement find = (MobileElement) driver.findElement(MobileBy.id("com.lambdatest.proverbial:id/find"));
             find.click();
 
-            //MARKING TEST AS PASSED
             ((JavascriptExecutor) driver).executeScript("lambda-status=passed");
 
         } catch (AssertionError a) {
-            //MARKING TEST AS FAILED
             ((JavascriptExecutor) driver).executeScript("lambda-status=failed");
             a.printStackTrace();
             driver.quit();
